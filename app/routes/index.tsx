@@ -1,4 +1,5 @@
 import { Link } from "@remix-run/react";
+import { getFormLinks } from "~/logic/helper";
 
 export interface IHomePage {
 
@@ -6,22 +7,8 @@ export interface IHomePage {
 
 export default function HomePage() {
 
-  const formLinkA113 = { 
-    to: "A113",
-    urlSegment: "/A113",
-    label: "Form A113"
-  };
-
-  const formLinkA114 = {
-    to: "A114",
-    urlSegement: "/A114",
-    label: "Form A114"
-  };
-  const formLinkA115 = {
-    to: "A115",
-    urlSegement: "/A115",
-    label: "Form A11 5"
-  };
+  const formLinks = getFormLinks();
+  
 
   return (
     <article className="prose prose-xl">
@@ -31,15 +18,13 @@ export default function HomePage() {
       {/* TODO: when user selects a form generate unique form instance. Timestamp and save unique ID of form instance in form instance log*/}
       {/* TODO: redirect to unique form instance page */}
       <ul>
-        <li>
-          <Link to={formLinkA113.to} >{formLinkA113.label}</Link>
-        </li>
-        <li>
-          <Link to={formLinkA114.to} >{formLinkA114.label}</Link>
-        </li>
-        <li>
-          <Link to="A115">form A115</Link>
-        </li>
+        {
+          formLinks.map( (formlink) =>
+            <li key={formlink.id} >
+              <Link to={formlink.urlSegment} >{formlink.label}</Link>
+            </li>
+          )
+        }
       </ul>
     </article>
   );
